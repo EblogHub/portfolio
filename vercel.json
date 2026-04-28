@@ -1,7 +1,0 @@
-{
-  "buildCommand": "npm install",
-  "outputDirectory": ".",
-  "framework": "static",
-  "installCommand": "npm install",
-  "startCommand": "node server.js"
-}
