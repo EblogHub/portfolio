@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Full-stack web development and software engineering. Build scalable, modern web applications with proven expertise in React, Node.js, cloud architecture, and enterprise solutions."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="./style.css" />
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+    <title>EblogHub | Full-Stack Web Development & Enterprise Solutions</title>
+  </head>
+
+  <body>
+    <!-- Scroll progress -->
+    <div id="scroll-progress"></div>
+
+    <!-- Custom cursor -->
+    <div id="cursor-ring"></div>
+    <div id="cursor-dot"></div>
+    <div id="cursor-label" class="cursor-label"></div>
+
+    <!-- Interactive canvas background -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="grid-overlay"></div>
+
+    <!-- ─── NAV ─── -->
+    <nav class="nav">
+      <div class="nav-inner container">
+        <a class="brand" href="#home">Eblog<span>Hub</span></a>
+        <button
+          id="nav-toggle"
+          class="nav-toggle"
+          aria-label="Toggle navigation"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links" id="nav-menu">
+          <a href="#home">Home</a>
+          <a href="#services">Services</a>
+          <a href="#work">Portfolio</a>
+          <a href="#expertise">Tech Stack</a>
+          <a href="#outcomes">Results</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ─── HERO ─── -->
+    <header id="home" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-photo">
+          <div class="hero-photo-bg">
+            <img src="asset/mememe.jpg" alt="Profile Photo" class="hero-photo-img" />
+          </div>
+        </div>
+        <div class="hero-copy">
+          <p class="eyebrow">
+            Software Engineering &amp; Full-Stack Development
+          </p>
+          <h1>
+            Enterprise grade<br /><em>web applications</em><br />that scale.
+          </h1>
+          <p class="hero-description">
+            We design and build modern, responsive web applications with a focus
+            on performance, scalability, and clean user experience. From concept
+            to deployment, we deliver full-stack solutions that help businesses
+            grow.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#work">View Our Work →</a>
+            <a class="button secondary" href="#contact">Start a Project</a>
+          </div>
+        </div>
+        <div class="hero-card reveal">
+          <div class="headline-card">
+            <div class="headline-icon">🚀</div>
+            <div>
+              <h3>Proven Results</h3>
+              <p>Trusted by startups and enterprises worldwide.</p>
+            </div>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span>15+</span>
+              <p>Projects Delivered</p>
+            </div>
+            <div class="stat-card">
+              <span>9+</span>
+              <p>Happy Clients</p>
+            </div>
+            <div class="stat-card">
+              <span>99.9%</span>
+              <p>Uptime Track Record</p>
+            </div>
+          </div>
+          <div class="status-bar">
+            <div class="status-dot"></div>
+            <span>All systems operational — available for new projects</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ─── SERVICES ─── -->
+    <section id="services" class="section">
+      <div class="container">
+        <div class="section-intro">
+          <p class="eyebrow">What We Build</p>
+          <h2>Services tailored to your <em>needs.</em></h2>
+        </div>
+        <div class="service-grid">
+          <article class="service-card reveal">
+            <div class="service-icon">⚛️</div>
+            <h3>Modern Web Applications</h3>
+            <p>
+              React, Vue, and Angular applications built with performance,
+              accessibility, and scalability in mind. Fast load times, smooth
+              interactions, responsive across all devices.
+            </p>
+          </article>
+          <article class="service-card reveal reveal-delay-1">
+            <div class="service-icon">🖥️</div>
+            <h3>Full-Stack Development</h3>
+            <p>
+              Complete end-to-end solutions from frontend UI to backend APIs.
+              Node.js, Python, and serverless architectures that power modern
+              applications.
+            </p>
+          </article>
+          <article class="service-card reveal reveal-delay-2">
+            <div class="service-icon">☁️</div>
+            <h3>Cloud Architecture</h3>
+            <p>
+              AWS, Azure, and GCP deployments with CI/CD pipelines,
+              auto-scaling, and disaster recovery. Your app stays up, fast, and
+              secure.
+            </p>
+          </article>
+          <article class="service-card reveal reveal-delay-3">
+            <div class="service-icon">🔒</div>
+            <h3>Enterprise Security</h3>
+            <p>
+              End-to-end encryption, authentication, compliance (GDPR, SOC2),
+              and security audits. Build with confidence and peace of mind.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PORTFOLIO ─── -->
+    <section id="work" class="section">
+      <div class="container">
+        <div class="section-intro">
+          <p class="eyebrow">Portfolio Highlights</p>
+          <h2>Recent projects &amp; <em>success stories.</em></h2>
+        </div>
+        <div class="module-controls">
+          <input
+            id="module-search"
+            type="search"
+            placeholder="Search projects by name or industry"
+            aria-label="Search projects"
+          />
+          <select id="domain-filter" aria-label="Filter by project type">
+            <option value="all">All Projects</option>
+            <option value="Web App">Web Application</option>
+            <option value="SaaS">SaaS Platform</option>
+            <option value="E-commerce">E-commerce</option>
+            <option value="Dashboard">Analytics Dashboard</option>
+            <option value="API">API &amp; Integration</option>
+          </select>
+        </div>
+        <div id="module-results" class="module-grid"></div>
+        <p
+          style="
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+          "
+        >
+          Filter by project type to see specific expertise. Each project
+          showcases our commitment to quality and performance.
+        </p>
+      </div>
+    </section>
+
+    <!-- ─── TECH STACK ─── -->
+    <section id="expertise" class="section">
+      <div class="container stack-grid">
+        <div class="stack-copy reveal">
+          <p class="eyebrow">Technology Stack</p>
+          <h2>Built with modern, battle-tested tech.</h2>
+          <p>
+            We use the best tools in the industry to ensure your application is
+            fast, secure, and maintainable. Continuous learning keeps us at the
+            forefront of web development.
+          </p>
+          <div>
+            <p
+              style="
+                font-size: 0.82rem;
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                color: var(--accent);
+                margin-bottom: 0.6rem;
+              "
+            >
+              Frontend
+            </p>
+            <div class="tech-tags">
+              <span class="tech-tag">React</span
+              ><span class="tech-tag">Next.js</span
+              ><span class="tech-tag">Vue</span
+              ><span class="tech-tag">TypeScript</span
+              ><span class="tech-tag">Tailwind</span>
+            </div>
+          </div>
+          <div style="margin-top: 1.25rem">
+            <p
+              style="
+                font-size: 0.82rem;
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                color: var(--accent);
+                margin-bottom: 0.6rem;
+              "
+            >
+              Backend
+            </p>
+            <div class="tech-tags">
+              <span class="tech-tag">Node.js</span
+              ><span class="tech-tag">Python</span
+              ><span class="tech-tag">FastAPI</span
+              ><span class="tech-tag">GraphQL</span>
+            </div>
+          </div>
+          <div style="margin-top: 1.25rem">
+            <p
+              style="
+                font-size: 0.82rem;
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+                color: var(--accent);
+                margin-bottom: 0.6rem;
+              "
+            >
+              DevOps
+            </p>
+            <div class="tech-tags">
+              <span class="tech-tag">Docker</span
+              ><span class="tech-tag">Kubernetes</span
+              ><span class="tech-tag">AWS</span
+              ><span class="tech-tag">Terraform</span>
+            </div>
+          </div>
+        </div>
+        <div class="stack-metrics">
+          <div class="metric-card reveal">
+            <h3>Performance First</h3>
+            <p>
+              Optimized for speed with Core Web Vitals excellence, CDN delivery,
+              and efficient caching strategies.
+            </p>
+          </div>
+          <div class="metric-card reveal reveal-delay-1">
+            <h3>Production Ready</h3>
+            <p>
+              Error tracking, monitoring, logging, and alerting built into every
+              deployment from day one.
+            </p>
+          </div>
+          <div class="metric-card reveal reveal-delay-2">
+            <h3>Developer Friendly</h3>
+            <p>
+              Clean code, comprehensive documentation, and easy handoffs for
+              your internal team.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── TRUST ─── -->
+    <section id="outcomes" class="section trust-section">
+      <div class="container trust-grid">
+        <div class="trust-item reveal">
+          <div class="trust-icon">✦</div>
+          <h3>Quality &amp; Reliability</h3>
+          <p>
+            Every application is tested thoroughly. We follow best practices for
+            code quality, security audits, and performance optimization.
+          </p>
+        </div>
+        <div class="trust-item reveal reveal-delay-1">
+          <div class="trust-icon">◈</div>
+          <h3>Transparent Communication</h3>
+          <p>
+            Regular updates, clear timelines, and honest feedback. You'll always
+            know the status of your project and what to expect next.
+          </p>
+        </div>
+        <div class="trust-item reveal reveal-delay-2">
+          <div class="trust-icon">⬡</div>
+          <h3>Long-term Support</h3>
+          <p>
+            We don't disappear after launch. Ongoing maintenance, updates, and
+            scaling support as your business grows.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CONTACT ─── -->
+    <section id="contact" class="section">
+      <div class="container contact-grid">
+        <div class="contact-copy reveal">
+          <p class="eyebrow">Let's Work Together</p>
+          <h2>Ready to build something <em>amazing?</em></h2>
+          <p>
+            Whether you're launching a new project, scaling an existing
+            application, or need expert consultation on architecture and
+            performance, we're here to help. Reach out to discuss your ideas and
+            see how we can <br />
+            <br />
+            We are here to help for you.
+          </p>
+          <div class="contact-details">
+            <div class="contact-item">
+              <a href="mailto:talktoelishaanthonylive@gmail.com">Email</a>
+            </div>
+            <div class="contact-item">
+              <a href="https://wa.me/2349155152901" target="_blank">Whatsapp</a>
+            </div>
+
+            <div class="contact-item">
+              <strong>Status</strong>
+              <p>Available for new projects &amp; consulting</p>
+            </div>
+          </div>
+        </div>
+        <form
+          id="contact-form"
+          class="contact-form reveal reveal-delay-1"
+          novalidate
+        >
+          <label>
+            <span>Name</span>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Your name"
+              required
+            />
+          </label>
+          <label>
+            <span>Email</span>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@company.com"
+              required
+            />
+          </label>
+          <label>
+            <span>Company</span>
+            <input
+              type="text"
+              id="company"
+              name="company"
+              placeholder="Your company"
+              required
+            />
+          </label>
+          <label>
+            <span>Project Description</span>
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              placeholder="Tell us about your project and goals"
+              required
+            ></textarea>
+          </label>
+          <button
+            type="submit"
+            class="button primary"
+            style="justify-content: center; border: none; margin: 20px"
+          >
+            Send Message →
+          </button>
+          <p id="form-feedback" class="form-feedback" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ─── FOOTER ─── -->
+    <footer class="footer">
+      <div class="container footer-grid">
+        <p class="footer-copy">
+          © 2026 Designed & Built by EblogHub | 🟢 All Systems Operational
+        </p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
