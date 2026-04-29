@@ -454,7 +454,7 @@ body.cursor-hover #cursor-ring {
 /* ─── SERVICE CARDS ─── */
 .service-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1fr, 1.2fr);
   gap: 1.5rem;
 }
 
@@ -831,7 +831,7 @@ body.cursor-hover #cursor-ring {
 .contact-form {
   background: var(--card-bg);
   border-radius: 10px;
-  padding: 23xp;
+  padding: 23px 1.5rem;
   border: 1px solid var(--border);
   display: grid;
   gap: 1rem;
