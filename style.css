@@ -42,12 +42,7 @@ body {
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transition:
-    transform 0.15s ease,
-    width 0.2s,
-    height 0.2s,
-    border-color 0.2s,
-    background 0.2s;
+  transition: transform 0.15s ease, width 0.2s, height 0.2s, border-color 0.2s, background 0.2s;
   transform: translate(-50%, -50%);
   mix-blend-mode: normal;
 }
@@ -62,9 +57,7 @@ body {
   z-index: 10000;
   transform: translate(-50%, -50%);
   transition: transform 0.05s;
-  box-shadow:
-    0 0 10px var(--cyan),
-    0 0 20px rgba(0, 212, 255, 0.4);
+  box-shadow: 0 0 10px var(--cyan), 0 0 20px rgba(0, 212, 255, 0.4);
 }
 
 body.cursor-hover #cursor-ring {
@@ -187,9 +180,10 @@ body.cursor-hover #cursor-ring {
   align-items: center;
 }
 
+/* FIX: hero grid is now 3 columns — photo | copy | card */
 .hero-grid {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
+  grid-template-columns: auto 1fr 320px;
   gap: 2.5rem;
   align-items: center;
 }
@@ -203,8 +197,8 @@ body.cursor-hover #cursor-ring {
 }
 
 .hero-photo-bg {
-  width: 340px;
-  height: 340px;
+  width: 280px;
+  height: 280px;
   background: linear-gradient(135deg, var(--accent-glow), var(--surface-2) 80%);
   border-radius: 50%;
   display: flex;
@@ -212,18 +206,20 @@ body.cursor-hover #cursor-ring {
   align-items: center;
   box-shadow: 0 8px 48px 0 var(--shadow), 0 0 0 12px var(--surface-2);
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .hero-photo-img {
-  width: 260px;
-  height: 260px;
+  width: 220px;
+  height: 220px;
   object-fit: cover;
-  object-position: 50% 30%; /* Focus more on the face */
+  object-position: 50% 30%;
   border-radius: 50%;
   border: 6px solid var(--surface-2);
   background: var(--surface-2);
   box-shadow: 0 4px 32px var(--shadow);
-  filter: contrast(1.15) brightness(1.08) saturate(1.1) sharpen(1.2);
+  /* FIX: removed invalid filter: sharpen() — not a real CSS function */
+  filter: contrast(1.15) brightness(1.08) saturate(1.1);
 }
 
 .eyebrow {
@@ -247,8 +243,8 @@ body.cursor-hover #cursor-ring {
 }
 
 .hero-copy h1 {
-  font-size: clamp(2.8rem, 4vw, 5rem);
-  line-height: 1;
+  font-size: clamp(2.2rem, 3.5vw, 4.2rem);
+  line-height: 1.05;
   letter-spacing: -0.03em;
   font-weight: 700;
 }
@@ -321,6 +317,8 @@ body.cursor-hover #cursor-ring {
   backdrop-filter: blur(20px);
   position: relative;
   overflow: hidden;
+  /* FIX: ensure it sits on the same row as photo + copy */
+  align-self: center;
 }
 
 .hero-card::before {
@@ -373,9 +371,7 @@ body.cursor-hover #cursor-ring {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 1.1rem 1.25rem;
-  transition:
-    border-color 0.2s,
-    background 0.2s;
+  transition: border-color 0.2s, background 0.2s;
 }
 
 .stat-card:hover {
@@ -420,17 +416,12 @@ body.cursor-hover #cursor-ring {
   background: #00e676;
   box-shadow: 0 0 10px #00e676;
   animation: statusPulse 2s ease infinite;
+  flex-shrink: 0;
 }
 
 @keyframes statusPulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.5;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 /* ─── SECTION INTRO ─── */
@@ -454,7 +445,7 @@ body.cursor-hover #cursor-ring {
 /* ─── SERVICE CARDS ─── */
 .service-grid {
   display: grid;
-  grid-template-columns: repeat(1fr, 1.2fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
 }
 
@@ -674,6 +665,14 @@ body.cursor-hover #cursor-ring {
   margin-bottom: 1.75rem;
 }
 
+/* FIX: extracted inline styles into a proper class */
+.stack-label {
+  font-size: 0.82rem;
+  font-family: "JetBrains Mono", monospace;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+
 .tech-tags {
   display: flex;
   flex-wrap: wrap;
@@ -790,7 +789,7 @@ body.cursor-hover #cursor-ring {
   margin: 0.75rem 0 1rem;
 }
 
-.contact-copy p {
+.contact-copy > p {
   color: var(--text-muted);
   line-height: 1.8;
 }
@@ -801,11 +800,6 @@ body.cursor-hover #cursor-ring {
   gap: 1rem;
 }
 
-.contact-details a {
-  text-decoration: none;
-  color: aliceblue;
-}
-
 .contact-item {
   padding: 1rem 1.25rem;
   border-radius: 10px;
@@ -813,6 +807,7 @@ body.cursor-hover #cursor-ring {
   background: var(--card-bg);
 }
 
+/* FIX: contact-item strong and a now properly styled as labels */
 .contact-item strong {
   display: block;
   font-size: 0.8rem;
@@ -823,15 +818,27 @@ body.cursor-hover #cursor-ring {
   letter-spacing: 0.1em;
 }
 
+.contact-item a {
+  text-decoration: none;
+  color: var(--text);
+  font-size: 0.92rem;
+  transition: color 0.2s;
+}
+
+.contact-item a:hover {
+  color: var(--accent-bright);
+}
+
 .contact-item p {
   font-size: 0.92rem;
   color: var(--text-muted);
 }
 
+/* FIX: was `padding: 23xp` — corrected to 2rem */
 .contact-form {
   background: var(--card-bg);
   border-radius: 10px;
-  padding: 23px 1.5rem;
+  padding: 2rem;
   border: 1px solid var(--border);
   display: grid;
   gap: 1rem;
@@ -840,7 +847,6 @@ body.cursor-hover #cursor-ring {
 .contact-form label {
   display: grid;
   gap: 0.5rem;
-  margin: 20px;
   font-size: 0.85rem;
   color: var(--text-muted);
   font-family: "JetBrains Mono", monospace;
@@ -857,9 +863,7 @@ body.cursor-hover #cursor-ring {
   font-family: "Space Grotesk", sans-serif;
   font-size: 0.95rem;
   outline: none;
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .contact-form input::placeholder,
@@ -952,8 +956,25 @@ body.cursor-hover #cursor-ring {
 }
 
 /* ─── RESPONSIVE ─── */
+@media (max-width: 1100px) {
+  /* On medium screens collapse hero to 2 rows: photo+copy | card */
+  .hero-grid {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+  }
+  .hero-card {
+    grid-column: 1 / -1;
+  }
+}
+
 @media (max-width: 980px) {
-  .hero-grid,
+  .hero-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .hero-card {
+    grid-column: auto;
+  }
   .stack-grid,
   .contact-grid,
   .trust-grid,
@@ -961,10 +982,12 @@ body.cursor-hover #cursor-ring {
   .module-grid {
     grid-template-columns: 1fr;
   }
-
   .hero {
     padding: 4rem 0 3rem;
     min-height: auto;
+  }
+  .hero-photo {
+    justify-content: flex-start;
   }
 }
 
@@ -1014,9 +1037,7 @@ body.cursor-hover #cursor-ring {
 .reveal {
   opacity: 0;
   transform: translateY(24px);
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 .reveal.visible {
@@ -1024,14 +1045,6 @@ body.cursor-hover #cursor-ring {
   transform: none;
 }
 
-.reveal-delay-1 {
-  transition-delay: 0.1s;
-}
-
-.reveal-delay-2 {
-  transition-delay: 0.2s;
-}
-
-.reveal-delay-3 {
-  transition-delay: 0.3s;
-}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
