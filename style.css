@@ -213,7 +213,7 @@ body.cursor-hover #cursor-ring {
   width: 220px;
   height: 220px;
   object-fit: cover;
-  object-position: 50% 30%;
+  object-position: 50% 15%;
   border-radius: 50%;
   border: 6px solid var(--surface-2);
   background: var(--surface-2);
