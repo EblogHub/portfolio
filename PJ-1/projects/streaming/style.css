@@ -1,0 +1,223 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(circle at top, rgba(102,126,234,0.2), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(118,75,162,0.2), transparent 25%),
+                #050505;
+    color: white;
+    min-height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 3rem 1.5rem;
+    gap: 1rem;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.status {
+    padding: 0.65rem 1rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.14);
+}
+
+.status.live {
+    background: linear-gradient(135deg, #20c997, #38d9a9);
+    color: #060b22;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    font-weight: 700;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.3s ease;
+}
+
+nav a:hover {
+    opacity: 0.8;
+}
+
+.hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.hero-copy {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 2.5rem;
+    margin: 0 auto 2rem;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+}
+
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.8;
+    margin: 0 0 1rem;
+    font-size: 0.9rem;
+}
+
+.hero-copy h2 {
+    margin: 0;
+    font-size: 2.5rem;
+    line-height: 1.05;
+}
+
+.hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    color: #d0d6ff;
+}
+
+.hero-meta span {
+    background: rgba(255,255,255,0.06);
+    padding: 0.9rem 1.2rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.1);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.activity-panel {
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+    padding: 1.75rem 2rem;
+    border-radius: 24px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e9ecff;
+}
+
+.activity-panel h2 {
+    margin: 0 0 0.75rem;
+    font-size: 1.35rem;
+}
+
+.activity-panel p {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto 4rem;
+    padding: 0 2rem;
+}
+
+#videos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.video {
+    background: rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: left;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.video:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+}
+
+.video h3 {
+    color: #a3c4ff;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.video p {
+    color: #d2d7ff;
+    margin: 0.65rem 0;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.video::before {
+    content: '🎬';
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+button {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 0.9rem 1.75rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-top: 1.5rem;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.5rem 1.25rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .hero-copy {
+        padding: 1.75rem;
+    }
+
+    .hero-copy h2 {
+        font-size: 2rem;
+    }
+
+    .hero-meta {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    main, .hero, .activity-panel {
+        padding: 0 1.25rem;
+    }
+
+    #videos {
+        grid-template-columns: 1fr;
+    }
+}
