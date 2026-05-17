@@ -591,6 +591,7 @@ body.cursor-hover #cursor-ring {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .module-card::before {
@@ -728,7 +729,7 @@ body.cursor-hover #cursor-ring {
   background: rgba(77, 143, 255, 0.02);
 }
 
-..module-card.demo:hover {
+.module-card.demo:hover {
   border-color: rgba(77, 143, 255, 0.5);
   box-shadow: 0 24px 48px rgba(77, 143, 255, 0.15), 0 0 20px rgba(77, 143, 255, 0.1);
 }
