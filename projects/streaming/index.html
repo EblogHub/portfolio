@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamHub - Premium Streaming Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="brand">
+            <h1>StreamHub</h1>
+            <span class="status live">Now Live</span>
+        </div>
+        <nav>
+            <a href="../../index.html">Back to Portfolio</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-copy">
+            <p class="eyebrow">Live entertainment, premium channels, and trending recommendations</p>
+            <h2>Discover blockbuster movies, live events, and binge-worthy originals.</h2>
+            <div class="hero-meta">
+                <span id="viewer-count">187K viewers watching now</span>
+                <span id="stream-status-text">5 streams currently live</span>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section class="activity-panel">
+            <h2>Trending Now</h2>
+            <p id="stream-trending">Future Worlds is trending with 16K viewers</p>
+        </section>
+
+        <section id="videos">
+            <div class="video">
+                <h3>Action Thriller: Midnight Chase</h3>
+                <p>Runtime: 2h 15m | Rating: 8.7/10</p>
+                <p>A high-stakes thriller following an undercover agent racing against time to prevent a catastrophic event.</p>
+                <button onclick="playVideo(event, 'Midnight Chase')">Watch Now</button>
+            </div>
+            <div class="video">
+                <h3>Comedy: Office Shenanigans</h3>
+                <p>Runtime: 1h 45m | Rating: 9.2/10</p>
+                <p>A hilarious workplace comedy about quirky colleagues navigating corporate life.</p>
+                <button onclick="playVideo(event, 'Office Shenanigans')">Watch Now</button>
+            </div>
+            <div class="video">
+                <h3>Documentary: Ocean Mysteries</h3>
+                <p>Runtime: 1h 30m | Rating: 8.9/10</p>
+                <p>Explore the hidden wonders and secrets of our planet's vast oceans.</p>
+                <button onclick="playVideo(event, 'Ocean Mysteries')">Watch Now</button>
+            </div>
+            <div class="video">
+                <h3>Drama: Family Bonds</h3>
+                <p>Runtime: 2h 30m | Rating: 9.1/10</p>
+                <p>An emotional journey through family relationships and the power of forgiveness.</p>
+                <button onclick="playVideo(event, 'Family Bonds')">Watch Now</button>
+            </div>
+            <div class="video">
+                <h3>Sci-Fi: Future Worlds</h3>
+                <p>Runtime: 2h 10m | Rating: 8.8/10</p>
+                <p>A mind-bending exploration of alternate realities and advanced technology.</p>
+                <button onclick="playVideo(event, 'Future Worlds')">Watch Now</button>
+            </div>
+            <div class="video">
+                <h3>Horror: The Haunting</h3>
+                <p>Runtime: 1h 55m | Rating: 8.5/10</p>
+                <p>A chilling tale of supernatural events in an old Victorian mansion.</p>
+                <button onclick="playVideo(event, 'The Haunting')">Watch Now</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 StreamHub. All rights reserved. Designed & Built by EblogHub</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -183,92 +183,167 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 revealEls.forEach(el => observer.observe(el));
 
-// ─── PORTFOLIO DATA ───
-const modulesData = [
-    {
-        name: 'E-commerce Platform',
-        domain: 'E-commerce',
-        category: 'Retail',
-        description: 'Full-featured e-commerce platform with React frontend, Node.js backend, Stripe payments, and inventory management. Handles 10k+ daily users.',
-        capabilities: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
-        status: 'Live'
-    },
-    {
-        name: 'Real Estate Dashboard',
-        domain: 'Dashboard',
-        category: 'Analytics',
-        description: 'Interactive analytics dashboard for property listings with real-time data visualization, advanced filtering, and reporting tools.',
-        capabilities: ['Next.js', 'Chart.js', 'Firebase', 'Tailwind'],
-        status: 'Active'
-    },
-    {
-        name: 'SaaS Accounting Tool',
-        domain: 'SaaS',
-        category: 'Finance',
-        description: 'Cloud-based accounting software with multi-tenant architecture, invoice generation, expense tracking, and financial reports.',
-        capabilities: ['React', 'Python', 'PostgreSQL', 'AWS'],
-        status: 'Live'
-    },
-    {
-        name: 'Health & Fitness App',
-        domain: 'Web App',
-        category: 'Healthcare',
-        description: 'Progressive web app for fitness tracking with workout logging, meal planning, and social features. 50k+ active users.',
-        capabilities: ['Vue.js', 'Node.js', 'MongoDB', 'WebSockets'],
-        status: 'Live'
-    },
-    {
-        name: 'API Integration Layer',
-        domain: 'API',
-        category: 'Integration',
-        description: 'Custom GraphQL API gateway connecting 15+ microservices with authentication, rate limiting, and comprehensive documentation.',
-        capabilities: ['GraphQL', 'Node.js', 'Redis', 'Docker'],
-        status: 'Active'
-    },
-    {
-        name: 'Travel Booking System',
-        domain: 'Web App',
-        category: 'Travel',
-        description: 'Full-stack booking platform with real-time availability, payment processing, and email notifications. Supporting multiple currencies.',
-        capabilities: ['React', 'Node.js', 'PostgreSQL', 'Twilio'],
-        status: 'Live'
-    }
-];
+// ─── PORTFOLIO DATA & PAGINATION ───
+const ITEMS_PER_PAGE = 12;
+let currentPage = 1;
+let filteredProjects = [];
+let modulesData = [];
 
-function renderModules(modules) {
+// Initialize projects data - waits for allProjects from projects.js
+function initializeProjects() {
+    if (typeof allProjects !== 'undefined') {
+        modulesData = allProjects;
+        filteredProjects = [...modulesData];
+        setupPagination();
+        renderProjects();
+    } else {
+        // Fallback if allProjects isn't loaded
+        setTimeout(initializeProjects, 100);
+    }
+}
+
+function setupPagination() {
+    const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
+    updatePaginationUI(totalPages);
+}
+
+function updatePaginationUI(totalPages) {
+    const prevBtn = document.getElementById('prev-page');
+    const nextBtn = document.getElementById('next-page');
+    const currentPageEl = document.getElementById('current-page');
+    const totalPagesEl = document.getElementById('total-pages');
+    const resultsCount = document.getElementById('results-count');
+
+    currentPageEl.textContent = `Page ${currentPage}`;
+    totalPagesEl.textContent = `of ${totalPages}`;
+    resultsCount.textContent = `Showing ${filteredProjects.length} project${filteredProjects.length !== 1 ? 's' : ''}`;
+
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage >= totalPages;
+}
+
+function renderProjects() {
     const el = document.getElementById('module-results');
     if (!el) return;
-    if (!modules.length) {
+
+    if (!filteredProjects.length) {
         el.innerHTML = '<p class="empty-state">No projects matched your search. Try adjusting the filters.</p>';
+        setupPagination();
         return;
     }
-    el.innerHTML = modules.map(item => `
-        <article class="module-card reveal visible">
-            <div class="module-status">${item.status}</div>
+
+    // Calculate pagination
+    const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    const pageProjects = filteredProjects.slice(startIndex, endIndex);
+
+    el.innerHTML = pageProjects.map(item => {
+        const linkStart = item.url ? `<a href="${item.url}" style="text-decoration: none; color: inherit;">` : '';
+        const linkEnd = item.url ? '</a>' : '';
+        const isLive = item.status === 'Live' || item.status === 'Active';
+        const isDemo = item.status === 'Demo';
+        const statusClass = isLive ? 'live' : isDemo ? 'demo' : 'other';
+        const statusIcon = isLive ? '🟢' : isDemo ? '🔗' : '📋';
+        return `
+        ${linkStart}
+        <article class="module-card reveal visible ${statusClass}" style="cursor: ${item.url ? 'pointer' : 'default'};">
+            <div class="module-status ${statusClass}">
+                <span class="status-icon">${statusIcon}</span>
+                ${item.status}
+            </div>
             <h3>${item.name}</h3>
             <p class="module-meta"><strong>Domain:</strong> ${item.domain}</p>
             <p class="module-meta"><strong>Category:</strong> ${item.category}</p>
             <p class="module-services">${item.description}</p>
             <span class="module-badge">${item.capabilities.join(' · ')}</span>
+            ${isDemo ? '<div class="demo-activity">Live demo with interactive features</div>' : ''}
         </article>
-    `).join('');
+        ${linkEnd}
+    `;
+    }).join('');
+
+    updatePaginationUI(totalPages);
 }
 
-function filterModules() {
+function filterAndRenderProjects() {
     const query = document.getElementById('module-search').value.trim().toLowerCase();
     const domain = document.getElementById('domain-filter').value;
-    const filtered = modulesData.filter(item => {
+
+    filteredProjects = modulesData.filter(item => {
         const matchesDomain = domain === 'all' || item.domain === domain;
-        const matchesQuery = [item.name, item.category, item.description, item.domain]
+        const matchesQuery = !query || [item.name, item.category, item.description, item.domain]
             .some(f => f.toLowerCase().includes(query));
         return matchesDomain && matchesQuery;
     });
-    renderModules(filtered);
+
+    currentPage = 1; // Reset to first page on filter change
+    renderProjects();
 }
 
-document.getElementById('module-search').addEventListener('input', filterModules);
-document.getElementById('domain-filter').addEventListener('change', filterModules);
-renderModules(modulesData);
+// Event listeners
+document.getElementById('module-search').addEventListener('input', filterAndRenderProjects);
+document.getElementById('domain-filter').addEventListener('change', filterAndRenderProjects);
+document.getElementById('prev-page').addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+        renderProjects();
+        document.getElementById('module-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+});
+document.getElementById('next-page').addEventListener('click', () => {
+    const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
+    if (currentPage < totalPages) {
+        currentPage++;
+        renderProjects();
+        document.getElementById('module-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+});
+
+// Initialize projects when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeProjects);
+} else {
+    initializeProjects();
+}
+
+// ─── LIVE DEMO ACTIVITY ───
+function updateDemoActivity() {
+    const demoCards = document.querySelectorAll('.module-card.demo');
+    demoCards.forEach(card => {
+        const activityEl = card.querySelector('.demo-activity');
+        if (activityEl && Math.random() < 0.3) { // 30% chance to update
+            const activities = [
+                'Live demo with interactive features',
+                'Real-time data simulation active',
+                'User interactions being processed',
+                'Dynamic content updates running',
+                'API calls and responses simulated'
+            ];
+            activityEl.textContent = activities[Math.floor(Math.random() * activities.length)];
+        }
+    });
+}
+
+setInterval(updateDemoActivity, 8000); // Update every 8 seconds
+
+// ─── HERO STATUS UPDATES ───
+const heroStatuses = [
+    'All systems operational — available for new projects',
+    'Processing latest project inquiries',
+    'Demo environments running smoothly',
+    'Code reviews and deployments active',
+    'Innovation labs open for collaboration'
+];
+
+function updateHeroStatus() {
+    const statusEl = document.getElementById('hero-status');
+    if (statusEl) {
+        statusEl.textContent = heroStatuses[Math.floor(Math.random() * heroStatuses.length)];
+    }
+}
+
+setInterval(updateHeroStatus, 10000); // Update every 10 seconds
 
 // ─── NAV TOGGLE ───
 document.getElementById('nav-toggle').addEventListener('click', () => {
