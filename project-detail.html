@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Detail | EblogHub</title>
+    <meta name="description" content="Detailed project view for EblogHub's portfolio showcasing features, tech stack, and outcomes." />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <section class="section detail-section">
+      <div class="container detail-container">
+        <a class="button secondary back-button" href="index.html">← Back to Portfolio</a>
+        <article class="detail-card">
+          <div id="detail-notice" class="empty-state" style="display:none;"></div>
+          <div id="detail-content">
+            <h1 id="detail-title"></h1>
+            <p id="detail-overview"></p>
+            <div id="detail-stats" class="detail-stats"></div>
+            <div id="detail-tech" class="tech-grid"></div>
+            <div>
+              <h3>Key features</h3>
+              <ul id="detail-features" class="detail-features"></ul>
+            </div>
+            <div>
+              <h3>Outcome</h3>
+              <p id="detail-outcome"></p>
+            </div>
+            <div id="detail-links" class="detail-links"></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <script src="projects.js"></script>
+    <script src="project-detail.js"></script>
+  </body>
+</html>

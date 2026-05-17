@@ -94,7 +94,7 @@ vercel
 git init
 
 # 2. Add remote
-git remote add origin https://github.com/YOUR_USERNAME/portfolio.git
+git remote add origin https://github.com/EblogHub/portfolio.git
 
 # 3. Push code
 git add .
@@ -104,6 +104,8 @@ git push -u origin main
 # 4. In Vercel dashboard, import from GitHub
 # Go to https://vercel.com/new and select your repo
 ```
+
+> Note: Your repository is already linked to `https://github.com/EblogHub/portfolio.git`, so you can import that repo directly into Vercel and deploy from the dashboard.
 
 ### Option 3: Drag & Drop (Quick Deploy)
 

@@ -189,9 +189,54 @@ let currentPage = 1;
 let filteredProjects = [];
 let modulesData = [];
 
+function createProjectId(name, suffix) {
+    const baseId = name
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+    return suffix ? `${baseId}-${suffix}` : baseId;
+}
+
+function createProjectDetails(item) {
+    return {
+        overview: item.description || 'A solid project built with a focus on performance and usability.',
+        features: [
+            'Responsive design across desktop and mobile',
+            'Clean architecture and modular components',
+            'Performance optimizations and accessible UI',
+            'Robust handoff-ready documentation'
+        ],
+        technologies: item.capabilities || [],
+        outcome: `Delivered a modern ${item.domain || 'web'} solution with scalable architecture and polished UX.`,
+        year: item.year || '2024',
+        status: item.status || 'Active',
+        demoUrl: item.url || null,
+        client: item.domain === 'Demo' ? 'Portfolio demo client' : 'Private client',
+    };
+}
+
+function augmentProjectData() {
+    if (!Array.isArray(allProjects)) return;
+
+    const seenIds = {};
+    allProjects.forEach((project, index) => {
+        if (!project.id) {
+            const candidate = createProjectId(project.name || `project-${index + 1}`);
+            const count = seenIds[candidate] || 0;
+            project.id = count ? `${candidate}-${count + 1}` : candidate;
+            seenIds[candidate] = count + 1;
+        }
+
+        if (!project.details) {
+            project.details = createProjectDetails(project);
+        }
+    });
+}
+
 // Initialize projects data - waits for allProjects from projects.js
 function initializeProjects() {
     if (typeof allProjects !== 'undefined') {
+        augmentProjectData();
         modulesData = allProjects;
         filteredProjects = [...modulesData];
         setupPagination();
@@ -239,27 +284,24 @@ function renderProjects() {
     const pageProjects = filteredProjects.slice(startIndex, endIndex);
 
     el.innerHTML = pageProjects.map(item => {
-        const linkStart = item.url ? `<a href="${item.url}" style="text-decoration: none; color: inherit;">` : '';
-        const linkEnd = item.url ? '</a>' : '';
-        const isLive = item.status === 'Live' || item.status === 'Active';
-        const isDemo = item.status === 'Demo';
-        const statusClass = isLive ? 'live' : isDemo ? 'demo' : 'other';
-        const statusIcon = isLive ? '🟢' : isDemo ? '🔗' : '📋';
+        const detailLink = `project-detail.html?id=${encodeURIComponent(item.id)}`;
+        const statusClass = item.status === 'Live' || item.status === 'Active' ? 'live' : item.status === 'Demo' ? 'demo' : 'other';
+        const statusIcon = item.status === 'Live' || item.status === 'Active' ? '🟢' : item.status === 'Demo' ? '🔗' : '📋';
         return `
-        ${linkStart}
-        <article class="module-card reveal visible ${statusClass}" style="cursor: ${item.url ? 'pointer' : 'default'};">
-            <div class="module-status ${statusClass}">
-                <span class="status-icon">${statusIcon}</span>
-                ${item.status}
-            </div>
-            <h3>${item.name}</h3>
-            <p class="module-meta"><strong>Domain:</strong> ${item.domain}</p>
-            <p class="module-meta"><strong>Category:</strong> ${item.category}</p>
-            <p class="module-services">${item.description}</p>
-            <span class="module-badge">${item.capabilities.join(' · ')}</span>
-            ${isDemo ? '<div class="demo-activity">Live demo with interactive features</div>' : ''}
-        </article>
-        ${linkEnd}
+        <a href="${detailLink}" style="text-decoration: none; color: inherit;">
+            <article class="module-card reveal visible ${statusClass}">
+                <div class="module-status ${statusClass}">
+                    <span class="status-icon">${statusIcon}</span>
+                    ${item.status}
+                </div>
+                <h3>${item.name}</h3>
+                <p class="module-meta"><strong>Domain:</strong> ${item.domain}</p>
+                <p class="module-meta"><strong>Category:</strong> ${item.category}</p>
+                <p class="module-services">${item.description}</p>
+                <span class="module-badge">${item.capabilities.join(' · ')}</span>
+                ${item.url ? '<div class="demo-pill">Live demo available</div>' : ''}
+            </article>
+        </a>
     `;
     }).join('');
 

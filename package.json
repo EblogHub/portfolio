@@ -5,7 +5,9 @@
   "main": "index.html",
   "scripts": {
     "dev": "npx serve .",
-    "build": "echo 'No build step required for static site'"
+    "build": "echo 'No build step required for static site'",
+    "deploy": "vercel --prod",
+    "preview": "vercel dev"
   },
   "keywords": ["portfolio", "web-development"],
   "author": "EblogHub",
