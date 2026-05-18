@@ -23,7 +23,7 @@ projects.forEach(proj => {
   const demo = proj.url || `../projects/${(proj.domain||'demo').toLowerCase()}/index.html`;
   const repo = proj.repo || proj.github || '';
 
-  const heroPath = `../../asset/${id}.jpg`;
+  const heroPath = `/asset/${id}.jpg`;
   const heroStyle = fs.existsSync(path.join(__dirname, 'asset', `${id}.jpg`))
     ? `background-image: linear-gradient(180deg, rgba(4, 8, 16, 0.7), rgba(4, 8, 16, 0.28)), url('${heroPath}'); background-size: cover; background-position: center;`
     : `background: linear-gradient(135deg,#06202b,#08304a);`;
@@ -45,12 +45,12 @@ projects.forEach(proj => {
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="description" content="Professional project landing page for ${title}, a responsive website showcase by EblogHub." />
     <title>${title} — EblogHub</title>
-    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <div class="page-container project-page">
       <header class="project-page-header">
-        <a class="button secondary back-button" href="../../index.html">← Back to Portfolio</a>
+        <a class="button secondary back-button" href="/index.html">← Back to Portfolio</a>
         <div class="page-breadcrumb">Project Showcase • ${domain}</div>
       </header>
 
