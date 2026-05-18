@@ -227,9 +227,19 @@ function augmentProjectData() {
             seenIds[candidate] = count + 1;
         }
 
+        // Normalize status to 'Live' so all projects show the same green badge
+        project.status = 'Live';
+
         if (!project.details) {
             project.details = createProjectDetails(project);
         }
+
+        // Ensure each project has a demoUrl — prefer explicit url, otherwise map domain to a demo folder
+        const domainSlug = (project.domain || 'demo')
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/(^-|-$)/g, '');
+        project.details.demoUrl = project.url || `projects/${domainSlug}/index.html`;
     });
 }
 

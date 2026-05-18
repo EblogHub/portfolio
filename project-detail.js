@@ -82,6 +82,14 @@ function renderProjectDetail() {
 
     const details = project.details;
 
+    // Render hero area: attempt to use a project-specific image, fall back to gradient
+    const hero = document.getElementById('detail-hero');
+    if (hero) {
+        const imgPath = `asset/${project.id}.jpg`;
+        hero.style.backgroundImage = `linear-gradient(90deg, rgba(4,8,16,0.78), rgba(4,8,16,0.45)), url('${imgPath}')`;
+        hero.innerHTML = `<div style="padding:1rem 1.25rem;"><h2 style="margin:0; font-size:1.25rem;">${project.name}</h2><p style="margin:0.25rem 0 0; color:var(--text-muted);">${project.domain} · ${project.category}</p></div>`;
+    }
+
     document.title = `${project.name} | EblogHub`;
     title.textContent = project.name;
     overview.textContent = details.overview;
@@ -108,6 +116,7 @@ function renderProjectDetail() {
     links.innerHTML = `
         <a class="detail-link" href="index.html">Back to portfolio</a>
         ${details.demoUrl ? `<a class="detail-link" href="${details.demoUrl}" target="_blank" rel="noreferrer noopener">Open live demo</a>` : ''}
+        ${project.repo || project.github ? `<a class="detail-link" href="${project.repo || project.github}" target="_blank" rel="noreferrer noopener">Source</a>` : ''}
     `;
 }
 
